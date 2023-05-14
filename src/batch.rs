@@ -1,4 +1,4 @@
-use std::io::{Write, Read};
+use std::{io::{Write, Read}, path::{ PathBuf}};
 
 use serde::{Serialize, Deserialize};
 
@@ -35,8 +35,8 @@ impl FileBatch{
         }
     }
 
-    pub fn save_batch(&self, path: String) -> Result<(), String>{
-        let mut file = match std::fs::File::create(path.clone()){
+    pub fn save_batch(&self, path: PathBuf) -> Result<usize, String>{
+        let mut file = match std::fs::File::create(path){
             Ok(file) => file,
             Err(err) => return Err(format!("Error: {:?}", err)),
         };
@@ -45,7 +45,7 @@ impl FileBatch{
             Err(err) => return Err(format!("Error: {:?}", err)),
         };
         match file.write_all(serialized.as_slice()){
-            Ok(_) => Ok(()),
+            Ok(_) => Ok(serialized.len()),
             Err(err) => Err(format!("Error: {:?}", err)),
         }
     }
@@ -96,9 +96,9 @@ mod file_batch_tests {
     }
 
     #[test]
-    fn test_get_source(){
+    fn test_get_name(){
         let batch = FileBatch::new("test".to_string());
-        assert_eq!(batch.get_source(), "test".to_string());
+        assert_eq!(batch.get_name(), "test".to_string());
     }
     //Test save_batch in a temp dir
     #[test]
@@ -108,9 +108,8 @@ mod file_batch_tests {
         batch.add_file(file.clone());
         let temp_dir = tempfile::tempdir().unwrap();
         let path = temp_dir.path().join("test_batch.victory");
-        let path = path.to_str().unwrap().to_string();
         batch.save_batch(path.clone()).unwrap();
-        let batch2 = FileBatch::load_batch(path.clone()).unwrap();
+        let batch2 = FileBatch::load_batch(path.to_str().unwrap().to_string().clone()).unwrap();
         assert_eq!(batch, batch2);
         // Delete the file
         std::fs::remove_file(path.clone()).unwrap();
@@ -123,12 +122,12 @@ mod file_batch_tests {
         batch.add_file(file.clone());
         let temp_dir = tempfile::tempdir().unwrap();
         let path = temp_dir.path().join("test_batch.victory");
-        let path = path.to_str().unwrap().to_string();
+      
 
         println!("Path: {:?}", path);
 
         batch.save_batch(path.clone()).unwrap();
-        let batch2 = FileBatch::load_batch(path.clone()).unwrap();
+        let batch2 = FileBatch::load_batch(path.to_str().unwrap().to_string().clone()).unwrap();
         assert_eq!(batch, batch2);
 
         // Delete the file

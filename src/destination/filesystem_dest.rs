@@ -28,11 +28,20 @@ impl Destination for FileSystemDestination{
                 None => return Ok(files),
             };
             let file = match file{
-                Ok(file) => file,
-                Err(err) => return Err(format!("Error: {:?}", err)),
+                Ok(file) => Some(file),
+                Err(err) => {
+                    log::warn!("ListError: {:?}", err);
+                    None
+                
+                },
             };
-            let file = VictoryFile::new(file.path().to_str().unwrap().to_string());
-            files.push(file);
+            match file{
+                Some(file) => {
+                    let file = VictoryFile::new(file.path().to_str().unwrap().to_string());
+                    files.push(file);
+                },
+                None => (),
+            }
         }
         Ok(files)
     }

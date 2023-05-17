@@ -21,19 +21,8 @@ fn main() {
         ]
     ).unwrap();
 
+    let plan_path = Path::new("/Users/alex/repos/victoryforphil/victory-archive/bk_data/_plan.yaml");
+    let loaded_plan = plan::BackupPlan::load_plan(plan_path.to_path_buf()).expect("Failed to load plan");
 
-    let mut plan = plan::BackupPlan::new("Test".to_string());
-    plan.add_source(Box::new(FileSystemDestination::new("/Users/alex/repos".to_string())));
-    plan.discover(10_000, "./bk_data/".to_string()).unwrap();
-    let plan_path = Path::new("./bk_data/_plan.yaml");
-    plan.save_plan(plan_path.to_path_buf()).unwrap();
-    
-    if let Some(usage) = memory_stats() {
-        println!("Current physical memory usage: {:.4}mb", usage.physical_mem / 1024 / 1024);
-        println!("Current virtual memory usage: {:.4}mb", usage.virtual_mem / 1024 / 1024);
-    } else {
-        println!("Couldn't get the current memory usage :(");
-    }
-
-
+    let mut plan = plan::BackupPlan::from_saved(loaded_plan).unwrap();
 }

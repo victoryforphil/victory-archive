@@ -1,3 +1,7 @@
+use std::fs;
+
+use log::debug;
+
 use crate::file::VictoryFile;
 
 use super::Destination;
@@ -10,7 +14,7 @@ pub struct FileSystemDestination{
 
 impl FileSystemDestination{
     pub fn new(path: String) -> FileSystemDestination{
-        let walk_itr = walkdir::WalkDir::new(path.clone()).into_iter();
+        let walk_itr = walkdir::WalkDir::new(path.clone()).sort_by_file_name().into_iter();
         FileSystemDestination{
             path: path,
             walk_itr: walk_itr,
@@ -22,6 +26,7 @@ impl FileSystemDestination{
 impl Destination for FileSystemDestination{
     fn list_files_next(&mut self, count: u64) -> Result<Vec<VictoryFile>, String> {
         let mut files = Vec::new();
+        //TODO: Replace with chunk
         for _ in 0..count{
             let file = match self.walk_itr.next(){
                 Some(file) => file,
@@ -37,6 +42,10 @@ impl Destination for FileSystemDestination{
             };
             match file{
                 Some(file) => {
+                    debug!("Found file: {:?}", file);
+                    if file.file_type().is_dir(){
+                        continue;
+                    }
                     let file = VictoryFile::new(file.path().to_str().unwrap().to_string());
                     files.push(file);
                 },
@@ -49,14 +58,58 @@ impl Destination for FileSystemDestination{
     fn get_name(&self) -> String {
         self.path.clone()
     }
+
+    fn read_file(&self, file: &mut VictoryFile) -> Result<(), String> {
+        let contents = std::fs::read(file.path.clone());
+
+        let contents = match contents{
+            Ok(c) => {c},
+            Err(err) => {
+                log::warn!("ReadError: {:?}", err);
+                Vec::new()
+            },
+        };
+        file.load_contents(contents)?;
+        Ok(())
+    }
+
+    fn write_file(&self, file: &mut VictoryFile) -> Result<(), String> {
+        let contents = file.get_contents()?;
+        
+        // if directory, create
+        let path = std::path::Path::new(&file.path);
+        let dir = path.parent().unwrap();
+        if !dir.exists(){
+            match fs::create_dir_all(dir){
+                Ok(_) => (),
+                Err(err) => {
+
+                    log::warn!("create_dir_all Error: {:?} with path {:?}", err, dir.clone());
+                    return Err(format!("create_dir_all Error: {:?}", err));
+                },
+            }
+        }
+
+        // write file
+
+        match std::fs::write(&file.path, contents){
+            Ok(_) => Ok(()),
+            Err(err) => {
+                log::warn!("write Error: {:?}", err);
+                Err(format!("write Error: {:?}", err))
+            },
+        }
+    }
 }
 
 #[cfg(test)]
+
 mod fs_dest_tests {
     use walkdir::WalkDir;
 
     use super::*;
     use crate::file::VictoryFile;
+    use std::{println as info, println as warn}; // Workaround to use prinltn! for logs.
 
     // Get current working directory
     fn get_cwd() -> String{
@@ -122,6 +175,20 @@ mod fs_dest_tests {
         let mut file2 = dest.list_files_next(1).unwrap();
         let file2 = file2.pop().unwrap();
         assert_eq!(file, file2);   
+    }
+
+    #[test]
+    fn test_read_file(){
+       //Make a temp file
+         let mut dest = FileSystemDestination::new(get_cwd());
+            let mut files = dest.list_files_next(10).unwrap();
+           
+            let mut file = files.pop().unwrap();
+            dest.read_file(&mut file).unwrap();
+            assert!(file.size > 0);
+  
+            assert!(file.state == crate::file::FileState::Read);
+
     }
 
 }

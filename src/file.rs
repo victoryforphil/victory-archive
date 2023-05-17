@@ -1,4 +1,6 @@
+use log::debug;
 use serde::{Serialize, Deserialize};
+
 
 #[derive( Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub enum FileState{
@@ -16,7 +18,7 @@ pub struct VictoryFile{
     pub extension: String,
     pub state: FileState,
     pub contents: Option<Vec<u8>>,
-    pub size: u64,
+    pub size: usize,
     pub hash: String,
 }
 
@@ -34,4 +36,25 @@ impl VictoryFile{
             hash: "".to_string(),
         }
     }
+
+    pub fn load_contents(&mut self, contents: Vec<u8>) -> Result<(), String>{
+        self.size = contents.len();
+        self.contents = Some(contents);
+        self.state = FileState::Read;
+        debug!("Loaded contents for file: {:?} with size {:.1}MB", self.path, self.size as f64 / 1000000.0);
+        Ok(())
+    }
+
+    pub fn get_contents(&self) -> Result<Vec<u8>, String>{
+        match &self.contents{
+            Some(contents) => Ok(contents.clone()),
+            None => Err(format!("Error: File {:?} has no contents", self.path)),
+        }
+    }
+
+    pub fn clear_contents(&mut self){
+        self.contents = None;
+        self.state = FileState::Stored;
+    }
+    
 }

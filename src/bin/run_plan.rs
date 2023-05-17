@@ -12,8 +12,8 @@ use victory_archive::{destination::filesystem_dest::FileSystemDestination, plan}
 fn main() {
     CombinedLogger::init(
         vec![
-            TermLogger::new(LevelFilter::Debug, Config::default(), TerminalMode::Mixed, ColorChoice::Auto),
-            WriteLogger::new(LevelFilter::Debug, Config::default(), File::create("my_rust_binary.log").unwrap()),
+            TermLogger::new(LevelFilter::Info, Config::default(), TerminalMode::Mixed, ColorChoice::Auto),
+            WriteLogger::new(LevelFilter::Info, Config::default(), File::create("my_rust_binary.log").unwrap()),
         ]
     ).unwrap();
 
@@ -23,6 +23,7 @@ fn main() {
     info!("Plan loaded: {:?}", saved_plan);
 
     let mut plan = plan::BackupPlan::from_saved(saved_plan);
+    plan.run();
 
 
 

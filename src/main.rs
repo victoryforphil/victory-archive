@@ -1,6 +1,4 @@
-use std::fs::File;
-
-use destination::filesystem_dest::FileSystemDestination;
+use std::{fs::File, path::Path};
 use log::LevelFilter;
 use simplelog::*;
 
@@ -19,8 +17,8 @@ fn main() {
         ]
     ).unwrap();
 
+    let plan_path = Path::new("/Users/alex/repos/victoryforphil/victory-archive/bk_data/_plan.yaml");
+    let loaded_plan = plan::BackupPlan::load_saved(plan_path.to_path_buf().clone()).expect("Failed to load plan");
 
-    let mut plan = plan::BackupPlan::new("Test".to_string());
-    plan.add_source(Box::new(FileSystemDestination::new("/Users/alex/repos".to_string())));
-    plan.discover(10_000).unwrap();
+    let mut plan = plan::BackupPlan::from_saved(loaded_plan);
 }

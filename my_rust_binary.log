@@ -1,28 +1,13 @@
-20:47:12 [INFO] Batch Test_0 discovered with: 10000 files in 24ms
-20:47:13 [INFO] Batch Test_1 discovered with: 10000 files in 24ms
-20:47:13 [INFO] Batch Test_2 discovered with: 10000 files in 24ms
-20:47:13 [INFO] Batch Test_3 discovered with: 10000 files in 21ms
-20:47:13 [INFO] Batch Test_4 discovered with: 10000 files in 23ms
-20:47:13 [INFO] Batch Test_5 discovered with: 10000 files in 18ms
-20:47:13 [INFO] Batch Test_6 discovered with: 10000 files in 30ms
-20:47:13 [INFO] Batch Test_7 discovered with: 10000 files in 37ms
-20:47:13 [INFO] Batch Test_8 discovered with: 10000 files in 33ms
-20:47:13 [INFO] Batch Test_9 discovered with: 10000 files in 28ms
-20:47:13 [INFO] Batch Test_10 discovered with: 10000 files in 27ms
-20:47:13 [INFO] Batch Test_11 discovered with: 10000 files in 32ms
-20:47:13 [INFO] Batch Test_12 discovered with: 10000 files in 37ms
-20:47:13 [INFO] Batch Test_13 discovered with: 10000 files in 20ms
-20:47:13 [INFO] Batch Test_14 discovered with: 10000 files in 28ms
-20:47:13 [INFO] Batch Test_15 discovered with: 10000 files in 27ms
-20:47:13 [INFO] Batch Test_16 discovered with: 10000 files in 33ms
-20:47:13 [INFO] Batch Test_17 discovered with: 10000 files in 39ms
-20:47:13 [INFO] Batch Test_18 discovered with: 10000 files in 30ms
-20:47:13 [INFO] Batch Test_19 discovered with: 10000 files in 30ms
-20:47:13 [INFO] Batch Test_20 discovered with: 10000 files in 44ms
-20:47:13 [INFO] Batch Test_21 discovered with: 10000 files in 48ms
-20:47:13 [INFO] Batch Test_22 discovered with: 10000 files in 28ms
-20:47:13 [INFO] Batch Test_23 discovered with: 10000 files in 28ms
-20:47:13 [INFO] Batch Test_24 discovered with: 10000 files in 31ms
-20:47:13 [INFO] Batch Test_25 discovered with: 10000 files in 21ms
-20:47:13 [INFO] Batch Test_26 discovered with: 1095 files in 3ms
-20:47:13 [INFO] Total time to discover 27 batches with 261095 files: 795ms
+23:59:03 [INFO] Plan loaded: BackupPlanSave { name: "RepoBackup", path: "/Users/alex/repos_back", sources: ["/Users/alex/repos/"], batches: ["RepoBackup_0", "RepoBackup_1", "RepoBackup_2", "RepoBackup_3", "RepoBackup_4", "RepoBackup_5", "RepoBackup_6", "RepoBackup_7", "RepoBackup_8", "RepoBackup_9", "RepoBackup_10", "RepoBackup_11", "RepoBackup_12", "RepoBackup_13", "RepoBackup_14", "RepoBackup_15", "RepoBackup_16", "RepoBackup_17", "RepoBackup_18", "RepoBackup_19", "RepoBackup_20", "RepoBackup_21", "RepoBackup_22", "RepoBackup_23", "RepoBackup_24", "RepoBackup_25", "RepoBackup_26", "RepoBackup_27"], destinations: ["/Users/alex/repos_back/"] }
+23:59:03 [INFO] Running backup plan RepoBackup
+23:59:03 [INFO] Loading batch "/Users/alex/repos_back/RepoBackup_0.vbak_batch"
+23:59:05 [INFO] Wrote 9027 files in 2.23s
+23:59:05 [INFO] Loading batch "/Users/alex/repos_back/RepoBackup_1.vbak_batch"
+23:59:10 [INFO] Wrote 8904 files in 5.08s
+23:59:11 [INFO] Loading batch "/Users/alex/repos_back/RepoBackup_2.vbak_batch"
+23:59:11 [INFO] Wrote 8744 files in 0.87s
+23:59:11 [INFO] Loading batch "/Users/alex/repos_back/RepoBackup_3.vbak_batch"
+23:59:13 [INFO] Wrote 9148 files in 1.15s
+23:59:13 [INFO] Loading batch "/Users/alex/repos_back/RepoBackup_4.vbak_batch"
+23:59:14 [INFO] Wrote 8517 files in 1.45s
+23:59:14 [INFO] Loading batch "/Users/alex/repos_back/RepoBackup_5.vbak_batch"

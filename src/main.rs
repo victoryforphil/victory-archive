@@ -1,4 +1,3 @@
-#![feature(iter_next_chunk)]
 use std::{fs::File, path::Path};
 
 use destination::filesystem_dest::FileSystemDestination;
@@ -22,7 +21,7 @@ fn main() {
     ).unwrap();
 
     let plan_path = Path::new("/Users/alex/repos/victoryforphil/victory-archive/bk_data/_plan.yaml");
-    let loaded_plan = plan::BackupPlan::load_plan(plan_path.to_path_buf()).expect("Failed to load plan");
+    let loaded_plan = plan::BackupPlan::load_saved(plan_path.to_path_buf().clone()).expect("Failed to load plan");
 
-    let mut plan = plan::BackupPlan::from_saved(loaded_plan).unwrap();
+    let mut plan = plan::BackupPlan::from_saved(loaded_plan);
 }

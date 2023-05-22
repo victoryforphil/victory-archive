@@ -27,7 +27,8 @@ impl Destination for FileSystemDestination{
     fn list_files_next(&mut self, count: u64) -> Result<Vec<VictoryFile>, String> {
         let mut files = Vec::new();
         //TODO: Replace with chunk
-        for _ in 0..count{
+        let mut count = count;
+        while count > 0{
             let file = match self.walk_itr.next(){
                 Some(file) => file,
                 None => return Ok(files),
@@ -43,11 +44,12 @@ impl Destination for FileSystemDestination{
             match file{
                 Some(file) => {
                     debug!("Found file: {:?}", file);
-                    if file.file_type().is_dir(){
-                        continue;
+                    if file.file_type().is_file(){
+                        let file = VictoryFile::new(file.path().to_str().unwrap().to_string());
+                        files.push(file);
+                        count -= 1;
                     }
-                    let file = VictoryFile::new(file.path().to_str().unwrap().to_string());
-                    files.push(file);
+                    
                 },
                 None => (),
             }
@@ -109,11 +111,11 @@ mod fs_dest_tests {
 
     use super::*;
     use crate::file::VictoryFile;
-    use std::{println as info, println as warn}; // Workaround to use prinltn! for logs.
+    use std::{println as info, println as warn, path::Path}; // Workaround to use prinltn! for logs.
 
     // Get current working directory
     fn get_cwd() -> String{
-        let cwd = std::env::current_dir().unwrap();
+        let cwd = Path::new("./");
         cwd.to_str().unwrap().to_string()
     }
 
@@ -147,34 +149,15 @@ mod fs_dest_tests {
 
     #[test]
     fn test_list_files_next_filedata(){
-        let mut dest = FileSystemDestination::new(get_cwd());
+        let mut dest = FileSystemDestination::new(get_cwd() + "/src/destination");
         
-        let files = get_files_in_dir(get_cwd());
+    
+        let mut files = dest.list_files_next(1).unwrap();
+        let mut file = files.pop().unwrap();
 
-        let mut files = files.iter();
-        let file = files.next().unwrap();
-        let file = VictoryFile::new(file.to_string());
+        dest.read_file(&mut file).expect("Failed to read");
 
-        
-        let mut file2 = dest.list_files_next(1).unwrap();
-        let file2 = file2.pop().unwrap();
-        assert_eq!(file, file2);   
-    }
-
-    #[test]
-    fn test_list_files_next_lengths(){
-        let mut dest = FileSystemDestination::new(get_cwd());
-        
-        let files = get_files_in_dir(get_cwd());
-
-        let mut files = files.iter();
-        let file = files.next().unwrap();
-        let file = VictoryFile::new(file.to_string());
-
-        
-        let mut file2 = dest.list_files_next(1).unwrap();
-        let file2 = file2.pop().unwrap();
-        assert_eq!(file, file2);   
+        assert!(file.size > 0);
     }
 
     #[test]

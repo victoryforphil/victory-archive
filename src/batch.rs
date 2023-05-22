@@ -124,7 +124,7 @@ mod file_batch_tests {
         let temp_dir = tempfile::tempdir().unwrap();
         let path = temp_dir.path().join("test_batch.victory");
         batch.save_batch(path.clone()).unwrap();
-        let batch2 = FileBatch::load_batch(path.to_str().unwrap().to_string().clone()).unwrap();
+        let batch2 = FileBatch::load_batch(path.clone()).unwrap();
         assert_eq!(batch, batch2);
         // Delete the file
         std::fs::remove_file(path.clone()).unwrap();
@@ -142,7 +142,7 @@ mod file_batch_tests {
         println!("Path: {:?}", path);
 
         batch.save_batch(path.clone()).unwrap();
-        let batch2 = FileBatch::load_batch(path).unwrap();
+        let batch2 = FileBatch::load_batch(path.clone()).unwrap();
         assert_eq!(batch, batch2);
 
         // Delete the file

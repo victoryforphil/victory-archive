@@ -1,5 +1,6 @@
-#![feature(iter_next_chunk)]
 use std::{fs::File, path::Path};
+use std::fs::File;
+
 
 use destination::filesystem_dest::FileSystemDestination;
 use log::LevelFilter;

@@ -1,4 +1,3 @@
-#![feature(iter_next_chunk)]
 use std::fs::File;
 
 use destination::filesystem_dest::FileSystemDestination;

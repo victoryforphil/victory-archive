@@ -96,9 +96,9 @@ mod file_batch_tests {
     }
 
     #[test]
-    fn test_get_source(){
+    fn test_get_name(){
         let batch = FileBatch::new("test".to_string());
-        assert_eq!(batch.get_source(), "test".to_string());
+        assert_eq!(batch.get_name(), "test".to_string());
     }
     //Test save_batch in a temp dir
     #[test]

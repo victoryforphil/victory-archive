@@ -1,10 +1,6 @@
-#![feature(iter_next_chunk)]
 use std::{fs::File, path::Path};
-
-
 use log::LevelFilter;
 use simplelog::*;
-
 use memory_stats::memory_stats;
 use victory_archive::{destination::filesystem_dest::FileSystemDestination, plan};
 

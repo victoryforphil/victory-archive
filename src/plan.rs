@@ -235,8 +235,9 @@ impl BackupPlan{
             };
 
             // replace name by replacing source path with destination path
-            file.path = file.path.replace(self.sources[0].get_name().as_str(), self.destinations[0].get_name().as_str());
+            //file.path = file.path.replace(self.sources[0].get_name().as_str(), self.destinations[0].get_name().as_str());
             //debug!("Writing file {:?}", file.path);
+            
             match self.destinations[0].write_file(file){ 
                 Ok(_) => {writen += 1;},
                 Err(err) => {

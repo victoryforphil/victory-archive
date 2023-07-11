@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, path::{Path, PathBuf}};
 
 use log::debug;
 
@@ -45,7 +45,11 @@ impl Destination for FileSystemDestination{
                 Some(file) => {
                     debug!("Found file: {:?}", file);
                     if file.file_type().is_file(){
-                        let file = VictoryFile::new(file.path().to_str().unwrap().to_string());
+
+                        // Delete self.path section of the file path before saving
+                        let path = file.path().to_str().unwrap().to_string();
+                        let path = path.replace(&self.path, "");
+                        let file = VictoryFile::new(path);
                         files.push(file);
                         count -= 1;
                     }
@@ -62,7 +66,9 @@ impl Destination for FileSystemDestination{
     }
 
     fn read_file(&self, file: &mut VictoryFile) -> Result<(), String> {
-        let contents = std::fs::read(file.path.clone());
+        let full_path = format!("{}{}", self.path, file.path);
+        debug!("Reading file: {:?}", full_path);
+        let contents = std::fs::read(full_path);
 
         let contents = match contents{
             Ok(c) => {c},
@@ -77,9 +83,10 @@ impl Destination for FileSystemDestination{
 
     fn write_file(&self, file: &mut VictoryFile) -> Result<(), String> {
         let contents = file.get_contents()?;
-        
+        let mut path = PathBuf::from(&self.path);
         // if directory, create
-        let path = std::path::Path::new(&file.path);
+        path.push(PathBuf::from(&file.path));
+       
         let dir = path.parent().unwrap();
         if !dir.exists(){
             match fs::create_dir_all(dir){
@@ -93,8 +100,8 @@ impl Destination for FileSystemDestination{
         }
 
         // write file
-
-        match std::fs::write(&file.path, contents){
+        log::debug!("Writing file: {:?}", path);
+        match std::fs::write(&path, contents){
             Ok(_) => Ok(()),
             Err(err) => {
                 log::warn!("write Error: {:?}", err);

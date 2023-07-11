@@ -117,38 +117,23 @@ mod fs_dest_tests {
     use walkdir::WalkDir;
 
     use super::*;
-    use crate::file::VictoryFile;
+    use crate::{file::VictoryFile, utils::file_utils::file_cwd};
     use std::{println as info, println as warn, path::Path}; // Workaround to use prinltn! for logs.
 
     // Get current working directory
-    fn get_cwd() -> String{
-        let cwd = Path::new("./");
-        cwd.to_str().unwrap().to_string()
-    }
-
-    fn get_files_in_dir(path: String) -> Vec<String>{
-        let mut files = Vec::new();
-        //use walkdir
-        for entry in WalkDir::new(path) {
-            let entry = entry.unwrap();
-            let path = entry.path().to_str().unwrap().to_string();
-            files.push(path);
-        }
-        
-        files
-    }
+    
 
     #[test]
     fn test_list_files_next_count(){
-        let mut dest = FileSystemDestination::new(get_cwd());
+        let mut dest = FileSystemDestination::new(file_cwd());
         let files = dest.list_files_next(1000).unwrap();
         assert!(files.len() > 0);
 
-        let mut dest = FileSystemDestination::new(get_cwd());
+        let mut dest = FileSystemDestination::new(file_cwd());
         let files = dest.list_files_next(1).unwrap();
         assert_eq!(files.len(), 1);
 
-        let mut dest = FileSystemDestination::new(get_cwd());
+        let mut dest = FileSystemDestination::new(file_cwd());
         let files = dest.list_files_next(0).unwrap();
         assert_eq!(files.len(), 0);
       
@@ -156,7 +141,7 @@ mod fs_dest_tests {
 
     #[test]
     fn test_list_files_next_filedata(){
-        let mut dest = FileSystemDestination::new(get_cwd() + "/src/destination");
+        let mut dest = FileSystemDestination::new(file_cwd() + "/src/destination");
         
     
         let mut files = dest.list_files_next(1).unwrap();
@@ -170,7 +155,7 @@ mod fs_dest_tests {
     #[test]
     fn test_read_file(){
        //Make a temp file
-         let mut dest = FileSystemDestination::new(get_cwd());
+         let mut dest = FileSystemDestination::new(file_cwd());
             let mut files = dest.list_files_next(10).unwrap();
            
             let mut file = files.pop().unwrap();

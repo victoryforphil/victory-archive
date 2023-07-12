@@ -6,7 +6,6 @@ use num_format::{ToFormattedString, Locale};
 use crate::{plan::BackupPlan, batch::FileBatch};
 
 pub struct Executor{
-    pub plan : BackupPlan,
 }
 
 pub struct ExecutorDiscoveryResults{
@@ -28,13 +27,8 @@ impl ExecutorDiscoveryResults{
 }
 
 impl Executor{
-    pub fn new(plan: BackupPlan) -> Executor{
-        Executor{
-            plan: plan,
-        }
-    }
 
-    pub fn discover(&mut self,batch_size:u64) -> Result<ExecutorDiscoveryResults, String>{
+    pub fn discover(plan: &mut BackupPlan, batch_size:u64) -> Result<ExecutorDiscoveryResults, String>{
         
         // Store start time
         let total_start_time = std::time::Instant::now();
@@ -42,12 +36,12 @@ impl Executor{
         let mut total_files = 0;
         let mut batch_idx = 0;
         //TODO: Multithread this
-        for source in &mut self.plan.sources{
+        for source in &mut plan.sources{
             //TODO: Make ID also show destintation, such as plan_dest_batch..
             loop{
                 let batch_start_time = std::time::Instant::now();
                 let source = source.as_mut();
-                let mut batch = FileBatch::new(self.plan.name.to_string() + "_" + batch_idx.to_string().as_str());
+                let mut batch = FileBatch::new(plan.name.to_string() + "_" + batch_idx.to_string().as_str());
 
                 let files = match source.list_files_next(batch_size){
                     Ok(files) => files,
@@ -66,9 +60,9 @@ impl Executor{
                 batch_idx += 1;
                 total_files += batch.get_length();
 
-                self.plan.batches.push(batch.get_name());
+                plan.batches.push(batch.get_name());
                 
-                let batch_path = self.plan.path.join(batch.get_name().to_string() + ".vbak_batch");
+                let batch_path = plan.path.join(batch.get_name().to_string() + ".vbak_batch");
                 // Save batch
                 let save_size = match batch.save_batch(batch_path.clone()){
                     Ok(res) => res,
@@ -109,8 +103,39 @@ impl Executor{
 
 #[cfg(test)]
 mod executor_tests{
+    use crate::{utils::file_utils::{file_test_dir, file_generates_folder}, destination::{filesystem_dest::FileSystemDestination}, executor::Executor};
+
     #[test]
     fn test_discover(){
-         
+        let test_dir: std::path::PathBuf = file_test_dir();
+
+        let mut plan = crate::plan::BackupPlan::new("plan__test_discover".to_string());
+        let mut source_path = test_dir.clone();
+        source_path.push("source");
+
+        let mut dest_path = test_dir.clone();
+        dest_path.push("dest");
+
+        file_generates_folder(source_path.clone(), 100, 25);
+
+        plan.add_source(Box::new(FileSystemDestination::new(source_path.to_str().unwrap().to_string())));
+        plan.add_destination(Box::new(FileSystemDestination::new(dest_path.to_str().unwrap().to_string())));
+   
+        {
+            let res = Executor::discover(&mut plan, 5);
+
+            match res{
+            Ok(res) => {
+                assert_eq!(res.files, 25);
+                assert_eq!(res.batches, 5);
+            },
+            Err(err) => {
+                panic!("Error: {:?}", err);
+            }
+            }
+        }
+
+        assert_eq!(plan.batches.len(), 5);
+
     }
 }

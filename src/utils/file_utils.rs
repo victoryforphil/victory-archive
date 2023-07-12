@@ -18,6 +18,19 @@ pub fn file_generates(path:PathBuf, size:usize) -> Result<PathBuf, String>{
     }
 }
 
+pub fn file_generates_folder(path:PathBuf, size:usize, count:usize) -> Result<PathBuf, String>{
+    match std::fs::create_dir_all(path.clone()){
+        Ok(_) => (),
+        Err(err) => return Err(format!("Error: {:?}", err)),
+    }
+   for i in 0..count{
+        let mut file_path = path.clone();
+        file_path.push(format!("file_{}", i));
+        file_generates(file_path, size)?;
+    }
+    Ok(path)
+}
+
 pub fn file_test_dir() -> PathBuf{
     let mut path = PathBuf::from(std::env::var("CARGO_TARGET_TMPDIR").unwrap_or("./target".to_string()));
     path.push("test");
@@ -86,6 +99,26 @@ mod file_utils_tests{
         for i in 0..1000{
             assert_eq!(contents[i], (i + i % 255) as u8);
         }
+
+        // Remove the file
+        super::file_remove_all(&super::file_test_dir()).unwrap();
+
+        // Check that the file is gone
+        assert!(!path.exists());
+
+    }
+
+    #[test]
+    fn test_file_generates_folder(){
+        let path = super::file_test_dir();
+        info!("test_file_generates_folder path: {:?}", path);
+        let path = path.join("test_file_generates_folder");
+        let path = super::file_generates_folder(path, 250, 10).unwrap();
+        assert!(path.exists());
+
+        // Load the file and check the contents
+        let files = super::file_files_in_dir(path.clone()).unwrap();
+        assert_eq!(files.len(), 11);
 
         // Remove the file
         super::file_remove_all(&super::file_test_dir()).unwrap();

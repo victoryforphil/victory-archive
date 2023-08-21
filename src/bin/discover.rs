@@ -18,7 +18,7 @@ fn main() {
     plan.add_source(Box::new(FileSystemDestination::new("/Users/alex/repos".to_string())));
     plan.discover(10_000, "./bk_data/".to_string()).unwrap();
     let plan_path = Path::new("./bk_data/_plan.yaml");
-    plan.save_plan(plan_path.to_path_buf()).unwrap();
+    plan.save_plan(&plan_path.to_path_buf()).unwrap();
     
     if let Some(usage) = memory_stats() {
         println!("Current physical memory usage: {:.4}mb", usage.physical_mem / 1024 / 1024);

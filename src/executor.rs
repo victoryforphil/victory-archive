@@ -1,4 +1,4 @@
-use std::{path::PathBuf, time::{Duration, Instant}};
+use std::{time::{Duration, Instant}};
 
 use log::{error, debug, info};
 use num_format::{ToFormattedString, Locale};
@@ -62,7 +62,7 @@ impl Executor{
 
                 plan.batches.push(batch.get_name());
                 
-                let batch_path = plan.path.join(batch.get_name().to_string() + ".vbak_batch");
+                let batch_path = plan.path.join(".vbatches/").join(batch.get_name().to_string() + ".vbak_batch");
                 // Save batch
                 let save_size = match batch.save_batch(batch_path.clone()){
                     Ok(res) => res,
@@ -103,31 +103,36 @@ impl Executor{
 
 #[cfg(test)]
 mod executor_tests{
-    use crate::{utils::file_utils::{file_test_dir, file_generates_folder}, destination::{filesystem_dest::FileSystemDestination}, executor::Executor};
+    use crate::{utils::file_utils::{file_test_dir, file_generates_folder, file_remove_all}, destination::{filesystem_dest::FileSystemDestination}, executor::Executor};
 
     #[test]
     fn test_discover(){
-        let test_dir: std::path::PathBuf = file_test_dir();
+        let n_files = 200;
+        let batch_size = 10;
+        let test_dir: std::path::PathBuf = file_test_dir("test_discover".to_string());
+
 
         let mut plan = crate::plan::BackupPlan::new("plan__test_discover".to_string());
         let mut source_path = test_dir.clone();
         source_path.push("source");
+       
 
         let mut dest_path = test_dir.clone();
         dest_path.push("dest");
+      
 
-        file_generates_folder(source_path.clone(), 100, 25);
+        let _ = file_generates_folder(&source_path, 100, n_files);
 
         plan.add_source(Box::new(FileSystemDestination::new(source_path.to_str().unwrap().to_string())));
         plan.add_destination(Box::new(FileSystemDestination::new(dest_path.to_str().unwrap().to_string())));
-   
+        plan.save_plan(&test_dir);
         {
-            let res = Executor::discover(&mut plan, 5);
+            let res = Executor::discover(&mut plan, batch_size);
 
             match res{
             Ok(res) => {
-                assert_eq!(res.files, 25);
-                assert_eq!(res.batches, 5);
+                assert_eq!(res.files, n_files);
+                assert_eq!(res.batches, n_files / batch_size as usize);
             },
             Err(err) => {
                 panic!("Error: {:?}", err);
@@ -135,7 +140,10 @@ mod executor_tests{
             }
         }
 
-        assert_eq!(plan.batches.len(), 5);
+        assert_eq!(plan.batches.len(), n_files / batch_size as usize);
+
+        file_remove_all(&test_dir.clone()).expect("Could not remove dest dir");
+        
 
     }
 }

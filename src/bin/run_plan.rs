@@ -1,11 +1,11 @@
-use std::{fs::File, path::{Path, self}};
+use std::{fs::File, path::{self}};
 
 
 use log::{LevelFilter, info};
 use simplelog::*;
 
-use memory_stats::memory_stats;
-use victory_archive::{destination::filesystem_dest::FileSystemDestination, plan};
+
+use victory_archive::{plan};
 
 
 fn main() {

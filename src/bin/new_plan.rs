@@ -22,7 +22,7 @@ fn main() {
     plan.add_destination(Box::new(FileSystemDestination::new("/Users/alex/repos_back/".to_string())));
     plan.discover(10_000, "/Users/alex/repos_back/".to_string()).unwrap();
     let plan_path = Path::new("/Users/alex/repos_back/_plan.yaml");
-    plan.save_plan(plan_path.to_path_buf()).unwrap();
+    plan.save_plan(&plan_path.to_path_buf()).unwrap();
     
     if let Some(usage) = memory_stats() {
         println!("Current physical memory usage: {:.4}mb", usage.physical_mem / 1024 / 1024);

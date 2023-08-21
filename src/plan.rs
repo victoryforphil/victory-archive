@@ -111,12 +111,13 @@ impl BackupPlan{
         self.destinations.push(destination);
     }
 
-    pub fn save_plan(&mut self, path: PathBuf) -> Result<usize, String>{
+    pub fn save_plan(&mut self, path: &PathBuf) -> Result<usize, String>{
         // Save path minus the file name
         self.path = path.parent().unwrap().to_path_buf();
+        let mut file_path: PathBuf = path.clone();
+        file_path.push(format!("{}.yaml", self.name));
 
-
-        let mut file = match std::fs::File::create(path){
+        let mut file = match std::fs::File::create(file_path){
             Ok(file) => file,
             Err(err) => return Err(format!("Error: {:?}", err)),
         };
@@ -255,7 +256,7 @@ impl BackupPlan{
     // 4. Write file contents to destination
     pub fn run(&mut self){
         info!("Running backup plan {}", self.name);
-        let plan_path = self.path.clone();
+        let _plan_path = self.path.clone();
         for batch_name in &self.batches{
             self.process_batch(batch_name.to_string());
             

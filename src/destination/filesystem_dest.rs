@@ -1,4 +1,4 @@
-use std::{fs, path::{Path, PathBuf}};
+use std::{fs, path::{PathBuf}};
 
 use log::debug;
 
@@ -114,11 +114,13 @@ impl Destination for FileSystemDestination{
 #[cfg(test)]
 
 mod fs_dest_tests {
-    use walkdir::WalkDir;
+    
+
+    use crate::utils::file_utils::file_cwd;
 
     use super::*;
-    use crate::{file::VictoryFile, utils::file_utils::file_cwd};
-    use std::{println as info, println as warn, path::Path}; // Workaround to use prinltn! for logs.
+
+     // Workaround to use prinltn! for logs.
 
     // Get current working directory
     

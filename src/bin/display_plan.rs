@@ -17,6 +17,6 @@ fn main() {
 
     info!("Plan loaded: {:?}", saved_plan);
 
-    let mut plan = plan::BackupPlan::from_saved(saved_plan);
+    let _plan = plan::BackupPlan::from_saved(saved_plan);
 
 }

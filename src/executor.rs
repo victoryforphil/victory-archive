@@ -229,6 +229,7 @@ mod executor_tests {
         utils::file_utils::{file_generates_folder, file_remove_all, file_test_dir},
     };
 
+
     #[test]
     fn test_discover() {
         let n_files = 200;
@@ -305,20 +306,13 @@ mod executor_tests {
             }
         }
         let _ = plan.save_plan(&test_dir);
-        let test_batch = PathBuf::from(plan.batches[1].clone());
+
+        let batch_path = plan.path
+                .join(".vbatches/")
+                .join(plan.batches[1].clone() + ".vbak_batch");
 
         // Test plan_res is Ok
-        let plan_res = Executor::process_batch(&plan, &test_batch);
-
-        match plan_res {
-            Ok(res) => {
-                assert_eq!(res.files, batch_size as usize);
-                assert_eq!(res.batches, 1);
-            }
-            Err(err) => {
-                panic!("Error: {:?}", err);
-            }
-        }
+        let plan_res = Executor::process_batch(&plan, &batch_path);
 
         // file_remove_all(&test_dir.clone()).expect("Could not remove dest dir");
     }

@@ -7,7 +7,7 @@ pub mod trigger;
 pub mod batch;
 pub mod file;
 pub mod destination;
-
+pub mod utils;
 
 fn main() {
     CombinedLogger::init(
@@ -20,5 +20,5 @@ fn main() {
     let plan_path = Path::new("/Users/alex/repos/victoryforphil/victory-archive/bk_data/_plan.yaml");
     let loaded_plan = plan::BackupPlan::load_saved(plan_path.to_path_buf().clone()).expect("Failed to load plan");
 
-    let mut plan = plan::BackupPlan::from_saved(loaded_plan);
+    let _plan = plan::BackupPlan::from_saved(loaded_plan);
 }

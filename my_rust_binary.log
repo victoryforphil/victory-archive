@@ -1,13 +1,107 @@
-23:59:03 [INFO] Plan loaded: BackupPlanSave { name: "RepoBackup", path: "/Users/alex/repos_back", sources: ["/Users/alex/repos/"], batches: ["RepoBackup_0", "RepoBackup_1", "RepoBackup_2", "RepoBackup_3", "RepoBackup_4", "RepoBackup_5", "RepoBackup_6", "RepoBackup_7", "RepoBackup_8", "RepoBackup_9", "RepoBackup_10", "RepoBackup_11", "RepoBackup_12", "RepoBackup_13", "RepoBackup_14", "RepoBackup_15", "RepoBackup_16", "RepoBackup_17", "RepoBackup_18", "RepoBackup_19", "RepoBackup_20", "RepoBackup_21", "RepoBackup_22", "RepoBackup_23", "RepoBackup_24", "RepoBackup_25", "RepoBackup_26", "RepoBackup_27"], destinations: ["/Users/alex/repos_back/"] }
-23:59:03 [INFO] Running backup plan RepoBackup
-23:59:03 [INFO] Loading batch "/Users/alex/repos_back/RepoBackup_0.vbak_batch"
-23:59:05 [INFO] Wrote 9027 files in 2.23s
-23:59:05 [INFO] Loading batch "/Users/alex/repos_back/RepoBackup_1.vbak_batch"
-23:59:10 [INFO] Wrote 8904 files in 5.08s
-23:59:11 [INFO] Loading batch "/Users/alex/repos_back/RepoBackup_2.vbak_batch"
-23:59:11 [INFO] Wrote 8744 files in 0.87s
-23:59:11 [INFO] Loading batch "/Users/alex/repos_back/RepoBackup_3.vbak_batch"
-23:59:13 [INFO] Wrote 9148 files in 1.15s
-23:59:13 [INFO] Loading batch "/Users/alex/repos_back/RepoBackup_4.vbak_batch"
-23:59:14 [INFO] Wrote 8517 files in 1.45s
-23:59:14 [INFO] Loading batch "/Users/alex/repos_back/RepoBackup_5.vbak_batch"
+06:05:57 [INFO] Plan loaded: BackupPlanSave { name: "TestData", path: "X:\\Projects\\victory-archive\\test_data\\__vk", sources: ["X:\\Projects\\victory-archive\\test_data"], batches: ["TestData_0", "TestData_1", "TestData_2", "TestData_3", "TestData_4", "TestData_5", "TestData_6", "TestData_7", "TestData_8", "TestData_9", "TestData_10", "TestData_11", "TestData_12", "TestData_13", "TestData_14", "TestData_15", "TestData_16", "TestData_17", "TestData_18", "TestData_19", "TestData_20", "TestData_21", "TestData_22", "TestData_23", "TestData_24", "TestData_25", "TestData_26", "TestData_27", "TestData_28", "TestData_29", "TestData_30", "TestData_31", "TestData_32", "TestData_33", "TestData_34", "TestData_35", "TestData_36", "TestData_37", "TestData_38", "TestData_39", "TestData_40", "TestData_41", "TestData_42", "TestData_43", "TestData_44", "TestData_45", "TestData_46", "TestData_47", "TestData_48", "TestData_49", "TestData_50"], destinations: ["X:\\Projects\\victory-archive\\test_data\\_dest"] }
+06:05:57 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_0.vbak_batch"
+06:05:57 [WARN] write Error: Os { code: 5, kind: PermissionDenied, message: "Access is denied." }
+06:05:57 [ERROR] Executor: Error writing file "__vk\\TestData.yaml": "write Error: Os { code: 5, kind: PermissionDenied, message: \"Access is denied.\" }"
+06:05:57 [INFO] Wrote 49 files in 0.0702s
+06:05:57 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_1.vbak_batch"
+06:05:57 [INFO] Wrote 50 files in 0.0758s
+06:05:57 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_2.vbak_batch"
+06:05:57 [INFO] Wrote 50 files in 0.0744s
+06:05:57 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_3.vbak_batch"
+06:05:57 [INFO] Wrote 50 files in 0.0842s
+06:05:57 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_4.vbak_batch"
+06:05:57 [INFO] Wrote 50 files in 0.0774s
+06:05:57 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_5.vbak_batch"
+06:05:57 [INFO] Wrote 50 files in 0.0670s
+06:05:57 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_6.vbak_batch"
+06:05:57 [INFO] Wrote 50 files in 0.0712s
+06:05:57 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_7.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0761s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_8.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0689s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_9.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0631s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_10.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0822s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_11.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0662s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_12.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0773s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_13.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0689s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_14.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0653s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_15.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0690s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_16.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0657s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_17.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0699s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_18.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0623s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_19.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0640s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_20.vbak_batch"
+06:05:58 [INFO] Wrote 50 files in 0.0696s
+06:05:58 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_21.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0782s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_22.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0686s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_23.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0652s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_24.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0630s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_25.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0613s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_26.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0637s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_27.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0709s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_28.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0622s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_29.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0663s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_30.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0696s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_31.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0846s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_32.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0626s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_33.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0655s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_34.vbak_batch"
+06:05:59 [INFO] Wrote 50 files in 0.0638s
+06:05:59 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_35.vbak_batch"
+06:06:00 [INFO] Wrote 50 files in 0.0688s
+06:06:00 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_36.vbak_batch"
+06:06:00 [INFO] Wrote 50 files in 0.1805s
+06:06:00 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_37.vbak_batch"
+06:06:00 [INFO] Wrote 50 files in 0.2955s
+06:06:00 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_38.vbak_batch"
+06:06:00 [INFO] Wrote 50 files in 0.0890s
+06:06:00 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_39.vbak_batch"
+06:06:00 [INFO] Wrote 50 files in 0.0784s
+06:06:00 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_40.vbak_batch"
+06:06:00 [INFO] Wrote 50 files in 0.1039s
+06:06:00 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_41.vbak_batch"
+06:06:00 [INFO] Wrote 50 files in 0.0685s
+06:06:00 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_42.vbak_batch"
+06:06:01 [INFO] Wrote 50 files in 0.1954s
+06:06:01 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_43.vbak_batch"
+06:06:01 [INFO] Wrote 50 files in 0.2951s
+06:06:01 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_44.vbak_batch"
+06:06:08 [INFO] Wrote 50 files in 7.5673s
+06:06:08 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_45.vbak_batch"
+06:06:09 [INFO] Wrote 50 files in 0.0919s
+06:06:09 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_46.vbak_batch"
+06:06:09 [INFO] Wrote 50 files in 0.0744s
+06:06:09 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_47.vbak_batch"
+06:06:09 [INFO] Wrote 50 files in 0.0944s
+06:06:09 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_48.vbak_batch"
+06:06:09 [INFO] Wrote 50 files in 0.0690s
+06:06:09 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_49.vbak_batch"
+06:06:09 [INFO] Wrote 50 files in 0.0649s
+06:06:09 [INFO] Executor: Loading batch: "X:\\Projects\\victory-archive\\test_data\\__vk\\.vbatches/TestData_50.vbak_batch"
+06:06:09 [INFO] Wrote 1 files in 0.0017s
+06:06:09 [INFO] Executor: Total time to process 51 batches with 2,500 files: 11801ms
+06:06:09 [INFO] Plan executed successfully
